@@ -3,35 +3,39 @@ package es.udc.intelligentsystems.example;
 import es.udc.intelligentsystems.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Strategy4 implements SearchStrategy {
+
+    private List<Node> nodeList;
 
     public Strategy4() {
     }
 
     @Override
-    public State solve(SearchProblem p) throws Exception{
-        ArrayList<State> explored = new ArrayList<State>();
-        State currentState = p.getInitialState();
-        explored.add(currentState);
+    public Node[] solve(SearchProblem p) throws Exception{
+        ArrayList<Node> explored = new ArrayList<Node>();
+        Node currentNode = new Node();
+        currentNode.setNodeState(p.getInitialState());
+        explored.add(currentNode);
 
         int i = 1;
 
-        System.out.println((i++) + " - Starting search at " + currentState);
+        System.out.println((i++) + " - Starting search at " + currentNode.getNodeState());
 
-        while (!p.isGoal(currentState)){
-            System.out.println((i++) + " - " + currentState + " is not a goal");
-            Action[] availableActions = p.actions(currentState);
+        while (!p.isGoal(currentNode.getNodeState())){
+            System.out.println((i++) + " - " + currentNode.getNodeState() + " is not a goal");
+            Action[] availableActions = p.actions(currentNode.getNodeState());
             boolean modified = false;
             for (Action acc: availableActions) {
-                State sc = p.result(currentState, acc);
-                System.out.println((i++) + " - RESULT(" + currentState + ","+ acc + ")=" + sc);
+                State sc = p.result(currentNode.getNodeState(), acc);
+                System.out.println((i++) + " - RESULT(" + currentNode.getNodeState() + ","+ acc + ")=" + sc);
                 if (!explored.contains(sc)) {
-                    currentState = sc;
+                    explored.add(new Node(sc,currentNode,acc));
+                    currentNode = explored.get(explored.size() - 1);
                     System.out.println((i++) + " - " + sc + " NOT explored");
-                    explored.add(currentState);
                     modified = true;
-                    System.out.println((i++) + " - Current state changed to " + currentState);
+                    System.out.println((i++) + " - Current state changed to " + currentNode.getNodeState());
                     break;
                 }
                 else
@@ -39,7 +43,8 @@ public class Strategy4 implements SearchStrategy {
             }
             if (!modified) throw new Exception("No solution could be found");
         }
-        System.out.println((i++) + " - END - " + currentState);
-        return currentState;
+        System.out.println((i++) + " - END - " + currentNode.getNodeState());
+        Node[] exploredNodes = (Node[]) explored.toArray();
+        return exploredNodes;
     }
 }
