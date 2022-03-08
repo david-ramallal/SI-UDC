@@ -1,5 +1,7 @@
 package es.udc.intelligentsystems;
 
+import java.util.List;
+
 public class Node {
 
     private State nodeState;
@@ -21,5 +23,14 @@ public class Node {
 
     public void setNodeState(State nodeState) {
         this.nodeState = nodeState;
+    }
+
+    public Node getParent() {
+        return parent;
+    }
+
+    @Override
+    public String toString() {
+        return nodeState.toString();
     }
 }
