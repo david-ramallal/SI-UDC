@@ -49,16 +49,8 @@ public class Strategy4 implements SearchStrategy {
             }
             if (!modified) throw new Exception("No solution could be found");
         }
-        System.out.println((i++) + " - END - " + currentState);
+        System.out.println((i) + " - END - " + currentState);
         return reconstruct_sol(nodes.get(nodes.size() - 1));
-    }
-
-    public boolean containsState(List<Node> list, State state) {
-        for (Node node : list) {
-            if (node.getNodeState() == state)
-                return true;
-        }
-        return false;
     }
 
     public Node[] reconstruct_sol(Node node)  {
@@ -73,5 +65,4 @@ public class Strategy4 implements SearchStrategy {
         Collections.reverse(solution);
         return solution.toArray(new Node[0]);
     }
-
 }

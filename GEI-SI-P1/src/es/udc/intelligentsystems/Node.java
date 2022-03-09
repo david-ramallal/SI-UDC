@@ -29,6 +29,10 @@ public class Node {
         return parent;
     }
 
+    public Action getNodeAction() {
+        return nodeAction;
+    }
+
     @Override
     public String toString() {
         return nodeState.toString();
