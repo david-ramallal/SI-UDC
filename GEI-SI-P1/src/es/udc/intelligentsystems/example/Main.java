@@ -11,11 +11,22 @@ public class Main {
                                                                                                     VacuumCleanerProblem.VacuumCleanerState.DirtPosition.BOTH);
         SearchProblem aspiradora = new VacuumCleanerProblem(initialState);
 
-        SearchStrategy buscador = new Strategy4();
-        Node[] nodes = buscador.solve(aspiradora);
+        System.out.println("Strategy4:");
+
+        SearchStrategy buscador1 = new Strategy4();
+        Node[] nodes1 = buscador1.solve(aspiradora);
         System.out.println("Explored nodes: ");
-        for(int i = 0; i < nodes.length; i++){
-            System.out.println(nodes[i]);
+        for(int i = 0; i < nodes1.length; i++){
+            System.out.println(nodes1[i]);
+        }
+
+        System.out.println("GraphSearchStrategy:");
+
+        SearchStrategy buscador2 = new GraphSearchStrategy();
+        Node[] nodes2 =  buscador2.solve(aspiradora);
+        System.out.println("Explored nodes: ");
+        for(int i = 0; i < nodes2.length; i++){
+            System.out.println(nodes2[i]);
         }
     }
 }

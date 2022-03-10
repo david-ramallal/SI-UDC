@@ -9,65 +9,50 @@ import java.util.List;
 public class GraphSearchStrategy implements SearchStrategy{
 
     @Override
-    public Node[] solve(SearchProblem p) throws Exception{
+    public Node[] solve(SearchProblem p) throws Exception {
         ArrayList<Node> explored = new ArrayList<>();
         ArrayList<Node> frontier = new ArrayList<>();
-        List<Node> succ = new ArrayList<>();
-        State currentState = p.getInitialState();
+        List<Node> succ;
 
         Node node;
         State state;
 
-        Node currentNode = new Node();
-        currentNode.setNodeState(currentState);
+        Node initialNode = new Node();
+        initialNode.setNodeState(p.getInitialState());
 
-        if(p.isGoal(currentState))
-            return reconstruct_sol(currentNode);
+        frontier.add(initialNode);
 
-        frontier.add(currentNode);
-
-        while (!p.isGoal(currentState)){
-
-            if(frontier.isEmpty())
-                throw new Error("Failure: frontier is empty\n");
-
-            node = frontier.get(0);               // Equivalent to POP
-            frontier.remove(0);             // with Arraylist
-
+        while(!frontier.isEmpty()){
+            node = frontier.remove(0);
             state = node.getNodeState();
-
-            explored.add(node);
-
-            succ = successors(node, p);
-
-            for(Node h: succ){
-                if(!p.isGoal(h.getNodeState())){
-                    Node nodeH = new Node(h.getNodeState(), node, h.getNodeAction());
-
-                    List<State> statesFrontier = new ArrayList<>();
-                    List<State> statesExplored = new ArrayList<>();
-
-                    for (Node item : frontier) {
-                        statesFrontier.add(item.getNodeState());
-                    }
-                    for (Node value : explored) {
-                        statesExplored.add(value.getNodeState());
-                    }
-
-                    if(!statesFrontier.contains(h.getNodeState()) && !statesExplored.contains(h.getNodeState())){
-                        frontier.add(nodeH);
-                    }
-                }
-                Node[] reconstr = reconstruct_sol(node);
-                Node[] solution = new Node[reconstr.length + 1];
-                Node addNode = new Node(h.getNodeState(), null, h.getNodeAction());
-                for(int i = 0; i < reconstr.length; i++){
-                    solution[i] = reconstr[i];
-                }
-                solution[reconstr.length] = addNode;
-                return solution;
+            if(p.isGoal(state)){
+                return reconstruct_sol(node);
+            }else {
+                explored.add(node);
+                succ = successors(node, p);
             }
+
+            for(Node h: succ) {
+                List<State> statesFrontier = new ArrayList<>();
+                List<State> statesExplored = new ArrayList<>();
+
+                for (Node item : frontier) {
+                    statesFrontier.add(item.getNodeState());
+                }
+                for (Node value : explored) {
+                    statesExplored.add(value.getNodeState());
+                }
+
+                if (!statesFrontier.contains(h.getNodeState()) && !statesExplored.contains(h.getNodeState())) {
+                    frontier.add(h);
+                }
+
+            }
+
         }
+
+        throw new Exception("No solution could be found");
+
 
     }
 
@@ -90,7 +75,8 @@ public class GraphSearchStrategy implements SearchStrategy{
         Action[] availableActions = p.actions(node.getNodeState());
         for(Action acc: availableActions){
             if(acc.isApplicable(node.getNodeState())){
-                State newState = acc.applyTo(node.getNodeState());
+                //State newState = acc.applyTo(node.getNodeState());
+                State newState = p.result(node.getNodeState(), acc);
                 Node newNode = new Node(newState,node,acc);
                 successors.add(newNode);
             }
