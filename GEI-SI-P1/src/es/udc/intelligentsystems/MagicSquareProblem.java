@@ -1,5 +1,6 @@
 package es.udc.intelligentsystems;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -87,23 +88,52 @@ public class MagicSquareProblem extends SearchProblem{
 
     @Override
     public boolean isGoal(State st) {
-        return false;
+        MagicSquareState squareState = (MagicSquareState) st;
+        int n = squareState.square.size() * squareState.square.size();
+        int total = (squareState.square.size() * (n + 1))/2 ;
+        int totalRow, totalCol;
+
+        for(int i = 0; i < squareState.square.size(); i++){
+            totalRow = 0;
+            totalCol = 0;
+            for(int j = 0; j < squareState.square.get(i).size(); j++){
+                totalRow += squareState.square.get(i).get(j);
+                totalCol += squareState.square.get(j).get(i);
+            }
+            if(totalRow!=total)
+                return false;
+            if(totalCol!=total)
+                return false;
+        }
+
+        return true;
     }
 
     @Override
     public Action[] actions(State st) {
-//        MagicSquareState squareState = (MagicSquareState) st;
-//        int n = squareState.square.size() * squareState.square.size();
-//        boolean isContained = false;
-//
-//        for (int i = 0; i < n; i++){
-//            for(int j = 0; j < squareState.square.size(); j++){
-//                if(squareState.square.get(j).contains(i)){
-//                    isContained = true;
-//                    break;
-//                }
-//            }
-//        }
-        return new Action[0];
+        MagicSquareState squareState = (MagicSquareState) st;
+        int n = squareState.square.size() * squareState.square.size();
+        boolean isContained;
+        ArrayList<Action> actions= new ArrayList<>();
+
+        for (int i = 0; i < n; i++){
+            isContained = false;
+            for(int j = 0; j < squareState.square.size(); j++){
+                if(squareState.square.get(j).contains(i)){
+                    isContained = true;
+                    break;
+                }
+            }
+            if(!isContained){
+                for(int j = 0; j < squareState.square.size(); j++){
+                    for(int k = 0; k < squareState.square.size(); k++){
+                        if(squareState.square.get(j).get(k) == 0)
+                            actions.add(new MagicSquareAction(j+1, k+1, i));
+                    }
+                }
+            }
+        }
+
+        return actions.toArray(new Action[0]);
     }
 }
