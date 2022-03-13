@@ -1,12 +1,10 @@
-package es.udc.intelligentsystems.example;
-
-import es.udc.intelligentsystems.*;
+package es.udc.intelligentsystems;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class GraphSearchStrategy implements SearchStrategy{
+public class BreadthFirstStrategy implements SearchStrategy{
 
     @Override
     public Node[] solve(SearchProblem p) throws Exception {
@@ -52,8 +50,6 @@ public class GraphSearchStrategy implements SearchStrategy{
         }
 
         throw new Exception("No solution could be found");
-
-
     }
 
     public Node[] reconstruct_sol(Node node)  {
@@ -82,4 +78,5 @@ public class GraphSearchStrategy implements SearchStrategy{
         }
         return successors;
     }
+
 }

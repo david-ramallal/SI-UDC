@@ -116,7 +116,7 @@ public class MagicSquareProblem extends SearchProblem{
         boolean isContained;
         ArrayList<Action> actions= new ArrayList<>();
 
-        for (int i = 0; i < n; i++){
+        for (int i = 1; i <= n; i++){
             isContained = false;
             for(int j = 0; j < squareState.square.size(); j++){
                 if(squareState.square.get(j).contains(i)){
