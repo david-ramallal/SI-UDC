@@ -27,7 +27,7 @@ public class MainEx2a {
         list2.add(5);
         list2.add(7);
         list3.add(0);
-        list3.add(1);
+        list3.add(0);
         list3.add(0);
 
         cuadrado.add(list1);
@@ -42,10 +42,16 @@ public class MainEx2a {
 
 
 
-        SearchStrategy buscador = new BreadthFirstStrategy();
-        Node[] nodes = buscador.solve(magicSquare);
+        SearchStrategy breadth = new BreadthFirstStrategy();
+        Node[] nodesBreadth = breadth.solve(magicSquare);
+        SearchStrategy depth = new DepthFirstStrategy();
+        Node[] nodesDepth = depth.solve(magicSquare);
+
+
         System.out.println("Breadth-first: ");
-            System.out.println(nodes[nodes.length-1]);
+        System.out.println(nodesBreadth[nodesBreadth.length-1]);
+        System.out.println("Depth-first: ");
+        System.out.println(nodesDepth[nodesDepth.length-1]);
 
 
     }
