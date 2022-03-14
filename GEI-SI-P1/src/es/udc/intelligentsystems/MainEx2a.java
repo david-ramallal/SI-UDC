@@ -22,46 +22,30 @@ public class MainEx2a {
 
         list1.add(0);
         list1.add(0);
-        list1.add(0);
+        list1.add(2);
         list2.add(0);
-        list2.add(0);
-        list2.add(0);
+        list2.add(5);
+        list2.add(7);
         list3.add(0);
-        list3.add(0);
+        list3.add(1);
         list3.add(0);
 
         cuadrado.add(list1);
         cuadrado.add(list2);
         cuadrado.add(list3);
 
+        //Output should be: [[4,9,2],[3,5,7],[8,1,6]]
+
         MagicSquareProblem.MagicSquareState initialState = new MagicSquareProblem.MagicSquareState(cuadrado);
-
-        /*//MagicSquareProblem.MagicSquareAction accion = new MagicSquareProblem.MagicSquareAction(3,2,8);
-
-        MagicSquareProblem problem = new MagicSquareProblem(state);
-
-
-
-        System.out.println(state);
-//        System.out.println(accion);
-//        System.out.println(accion.isApplicable(state));
-//        System.out.println(accion.applyTo(state));
-//        System.out.println(Arrays.toString(problem.actions(state)));
-        System.out.println(problem.isGoal(state));
-*/
-
-
 
         SearchProblem magicSquare = new MagicSquareProblem(initialState);
 
-        System.out.println("Breadth-first: ");
+
 
         SearchStrategy buscador = new BreadthFirstStrategy();
         Node[] nodes = buscador.solve(magicSquare);
-        System.out.println("Explored nodes: ");
-        for(int i = 0; i < nodes.length; i++){
-            System.out.println(nodes[i]);
-        }
+        System.out.println("Breadth-first: ");
+            System.out.println(nodes[nodes.length-1]);
 
 
     }

@@ -77,8 +77,18 @@ public class MagicSquareProblem extends SearchProblem{
         @Override
         public State applyTo(State st) {
             MagicSquareState squareState = (MagicSquareState) st;
-            squareState.square.get(boxX - 1).set(boxY - 1, number);
-            return squareState;
+            List <List<Integer>> newSquare = new ArrayList<>();
+
+            for(int i = 0; i < squareState.square.size(); i++) {
+                List <Integer> intList = new ArrayList<>();
+                for (int j = 0; j < squareState.square.size(); j++) {
+                    intList.add(squareState.square.get(i).get(j));
+                }
+                newSquare.add(intList);
+            }
+
+            newSquare.get(boxX - 1).set(boxY - 1, number);
+            return new MagicSquareState(newSquare);
         }
     }
 
@@ -113,10 +123,34 @@ public class MagicSquareProblem extends SearchProblem{
     public Action[] actions(State st) {
         MagicSquareState squareState = (MagicSquareState) st;
         int n = squareState.square.size() * squareState.square.size();
-        boolean isContained;
+        boolean isContained = false;
         ArrayList<Action> actions= new ArrayList<>();
+        ArrayList<Integer> intNotInitState = new ArrayList<>();
 
-        for (int i = 1; i <= n; i++){
+        for(int i = 1; i <= n; i++) {
+            for (int j = 0; j < squareState.square.size(); j++) {
+                if (squareState.square.get(j).contains(i)) {
+                    isContained = true;
+                    break;
+                }
+            }
+            if(!isContained)
+                intNotInitState.add(i);
+            isContained = false;
+        }
+
+        for(int j = 0; j < squareState.square.size(); j++){
+            for(int k = 0; k < squareState.square.get(j).size(); k++){
+                if(squareState.square.get(j).get(k) == 0){
+                    for(int i = 0; i < intNotInitState.size(); i++){
+                        actions.add(new MagicSquareAction(j+1, k+1, intNotInitState.get(i)));
+                    }
+                }
+            }
+        }
+
+
+        /*for (int i = 1; i <= n; i++){
             isContained = false;
             for(int j = 0; j < squareState.square.size(); j++){
                 if(squareState.square.get(j).contains(i)){
@@ -128,11 +162,11 @@ public class MagicSquareProblem extends SearchProblem{
                 for(int j = 0; j < squareState.square.size(); j++){
                     for(int k = 0; k < squareState.square.size(); k++){
                         if(squareState.square.get(j).get(k) == 0)
-                            actions.add(new MagicSquareAction(j+1, k+1, i));
+
                     }
                 }
             }
-        }
+        }*/
 
         return actions.toArray(new Action[0]);
     }
