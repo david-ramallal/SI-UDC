@@ -149,25 +149,6 @@ public class MagicSquareProblem extends SearchProblem{
             }
         }
 
-
-        /*for (int i = 1; i <= n; i++){
-            isContained = false;
-            for(int j = 0; j < squareState.square.size(); j++){
-                if(squareState.square.get(j).contains(i)){
-                    isContained = true;
-                    break;
-                }
-            }
-            if(!isContained){
-                for(int j = 0; j < squareState.square.size(); j++){
-                    for(int k = 0; k < squareState.square.size(); k++){
-                        if(squareState.square.get(j).get(k) == 0)
-
-                    }
-                }
-            }
-        }*/
-
         return actions.toArray(new Action[0]);
     }
 }

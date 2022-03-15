@@ -1,18 +1,13 @@
 package es.udc.intelligentsystems;
 
-import es.udc.intelligentsystems.example.GraphSearchStrategy;
-import es.udc.intelligentsystems.example.Strategy4;
-import es.udc.intelligentsystems.example.VacuumCleanerProblem;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MainEx2a {
     public static void main(String[] args) throws Exception {
 
         /*
-        Esto es codigo de ejemplo para probar
+        This is an example to check Breadth-first and Depth-first
          */
 
         List<List<Integer>> cuadrado = new ArrayList<>();
@@ -37,23 +32,16 @@ public class MainEx2a {
         //Output should be: [[4,9,2],[3,5,7],[8,1,6]]
 
         MagicSquareProblem.MagicSquareState initialState = new MagicSquareProblem.MagicSquareState(cuadrado);
-
         SearchProblem magicSquare = new MagicSquareProblem(initialState);
-
-
 
         SearchStrategy breadth = new BreadthFirstStrategy();
         Node[] nodesBreadth = breadth.solve(magicSquare);
         SearchStrategy depth = new DepthFirstStrategy();
         Node[] nodesDepth = depth.solve(magicSquare);
 
-
         System.out.println("Breadth-first: ");
         System.out.println(nodesBreadth[nodesBreadth.length-1]);
         System.out.println("Depth-first: ");
         System.out.println(nodesDepth[nodesDepth.length-1]);
-
-
     }
-
 }

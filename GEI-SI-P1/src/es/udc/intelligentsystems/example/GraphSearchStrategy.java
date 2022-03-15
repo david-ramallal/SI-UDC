@@ -22,14 +22,21 @@ public class GraphSearchStrategy implements SearchStrategy{
 
         frontier.add(initialNode);
 
+        int i = 1;
+
+        System.out.println((i++) + " - Starting search at " + initialNode.getNodeState());
+
         while(!frontier.isEmpty()){
             node = frontier.remove(0);
             state = node.getNodeState();
             if(p.isGoal(state)){
+                System.out.println((i) + " - END - " + state);
                 return reconstruct_sol(node);
             }else {
+                System.out.println((i++) + " - " + state + " is not a goal");
                 explored.add(node);
-                succ = successors(node, p);
+                succ = successors(node, p, i);
+                i+=succ.size();
             }
 
             for(Node h: succ) {
@@ -44,16 +51,15 @@ public class GraphSearchStrategy implements SearchStrategy{
                 }
 
                 if (!statesFrontier.contains(h.getNodeState()) && !statesExplored.contains(h.getNodeState())) {
+                    System.out.println((i++) + " - " + h.getNodeState() + " NOT explored");
                     frontier.add(h);
                 }
-
+                else
+                    System.out.println((i++) + " - " + h.getNodeState() + " already explored");
             }
-
+            System.out.println((i++) + " - Current state changed to " + frontier.get(0).getNodeState());
         }
-
         throw new Exception("No solution could be found");
-
-
     }
 
     public Node[] reconstruct_sol(Node node)  {
@@ -69,13 +75,14 @@ public class GraphSearchStrategy implements SearchStrategy{
         return solution.toArray(new Node[0]);
     }
 
-    public List<Node> successors(Node node, SearchProblem p)  {
+    public List<Node> successors(Node node, SearchProblem p, int counter)  {
         List<Node> successors = new ArrayList<>();
 
         Action[] availableActions = p.actions(node.getNodeState());
         for(Action acc: availableActions){
             if(acc.isApplicable(node.getNodeState())){
                 State newState = p.result(node.getNodeState(), acc);
+                System.out.println((counter++) + " - RESULT(" + node.getNodeState() + ","+ acc + ")=" + newState);
                 Node newNode = new Node(newState,node,acc);
                 successors.add(newNode);
             }
