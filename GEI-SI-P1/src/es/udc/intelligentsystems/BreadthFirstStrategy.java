@@ -11,6 +11,7 @@ public class BreadthFirstStrategy implements SearchStrategy{
         ArrayList<Node> explored = new ArrayList<>();
         ArrayList<Node> frontier = new ArrayList<>();
         List<Node> succ;
+        int countExpanded = 0, countCreated = 0;
 
         Node node;
         State state;
@@ -24,10 +25,14 @@ public class BreadthFirstStrategy implements SearchStrategy{
             node = frontier.remove(0);
             state = node.getNodeState();
             if(p.isGoal(state)){
+                System.out.println("Number of expanded nodes: " + countExpanded);
+                System.out.println("Number of created nodes: " + countCreated);
                 return reconstruct_sol(node);
             }else {
                 explored.add(node);
+                countCreated++;
                 succ = successors(node, p);
+                countExpanded += succ.size();
             }
 
             for(Node h: succ) {
@@ -44,11 +49,8 @@ public class BreadthFirstStrategy implements SearchStrategy{
                 if (!statesFrontier.contains(h.getNodeState()) && !statesExplored.contains(h.getNodeState())) {
                     frontier.add(h);
                 }
-
             }
-
         }
-
         throw new Exception("No solution could be found");
     }
 

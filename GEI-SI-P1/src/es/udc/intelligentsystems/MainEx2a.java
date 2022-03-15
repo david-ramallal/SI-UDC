@@ -1,5 +1,7 @@
 package es.udc.intelligentsystems;
 
+import es.udc.intelligentsystems.example.GraphSearchStrategy;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,14 +36,14 @@ public class MainEx2a {
         MagicSquareProblem.MagicSquareState initialState = new MagicSquareProblem.MagicSquareState(cuadrado);
         SearchProblem magicSquare = new MagicSquareProblem(initialState);
 
+        System.out.println("Breadth-first: ");
         SearchStrategy breadth = new BreadthFirstStrategy();
         Node[] nodesBreadth = breadth.solve(magicSquare);
+        System.out.println(nodesBreadth[nodesBreadth.length-1]);
+
+        System.out.println("Depth-first: ");
         SearchStrategy depth = new DepthFirstStrategy();
         Node[] nodesDepth = depth.solve(magicSquare);
-
-        System.out.println("Breadth-first: ");
-        System.out.println(nodesBreadth[nodesBreadth.length-1]);
-        System.out.println("Depth-first: ");
         System.out.println(nodesDepth[nodesDepth.length-1]);
     }
 }
