@@ -1,4 +1,4 @@
-package es.udc.intelligentsystems;
+package es.udc.intelligentsystems.g61_05;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.Objects;
 public class MagicSquareProblem extends SearchProblem{
     public static class MagicSquareState extends State{
 
-        private List<List<Integer>> square;
+        private final List<List<Integer>> square;
 
         public MagicSquareState(List<List<Integer>> square) {
             this.square = square;
@@ -19,21 +19,21 @@ public class MagicSquareProblem extends SearchProblem{
 
         @Override
         public String toString() {
-            String rtnString = "[";
+            StringBuilder rtnString = new StringBuilder("[");
             for(int i = 0; i < square.size(); i++){
-                rtnString = rtnString + "[";
+                rtnString.append("[");
                 for(int j = 0; j < square.size(); j++){
-                    rtnString = rtnString + square.get(i).get(j).toString();
+                    rtnString.append(square.get(i).get(j).toString());
                     if(j != square.size() - 1)
-                        rtnString = rtnString + ",";
+                        rtnString.append(",");
                 }
                 if(i != square.size() - 1)
-                    rtnString = rtnString + "],";
+                    rtnString.append("],");
                 else
-                    rtnString = rtnString + "]";
+                    rtnString.append("]");
             }
-            rtnString = rtnString + "]";
-            return rtnString;
+            rtnString.append("]");
+            return rtnString.toString();
         }
 
         @Override
@@ -50,8 +50,9 @@ public class MagicSquareProblem extends SearchProblem{
     }
 
     public static class MagicSquareAction extends Action{
-        private int boxX, boxY;
-        private int number;
+        private final int boxX;
+        private final int boxY;
+        private final int number;
 
         public MagicSquareAction(int boxX, int boxY, int number) {
             this.boxX = boxX;
@@ -146,8 +147,8 @@ public class MagicSquareProblem extends SearchProblem{
         for(int j = 0; j < squareState.square.size(); j++){
             for(int k = 0; k < squareState.square.get(j).size(); k++){
                 if(squareState.square.get(j).get(k) == 0){
-                    for(int i = 0; i < intNotInitState.size(); i++){
-                        actions.add(new MagicSquareAction(j+1, k+1, intNotInitState.get(i)));
+                    for (Integer integer : intNotInitState) {
+                        actions.add(new MagicSquareAction(j + 1, k + 1, integer));
                     }
                 }
             }

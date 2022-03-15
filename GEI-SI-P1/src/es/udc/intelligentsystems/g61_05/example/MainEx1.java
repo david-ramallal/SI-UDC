@@ -1,8 +1,8 @@
-package es.udc.intelligentsystems.example;
+package es.udc.intelligentsystems.g61_05.example;
 
-import es.udc.intelligentsystems.Node;
-import es.udc.intelligentsystems.SearchStrategy;
-import es.udc.intelligentsystems.SearchProblem;
+import es.udc.intelligentsystems.g61_05.Node;
+import es.udc.intelligentsystems.g61_05.SearchStrategy;
+import es.udc.intelligentsystems.g61_05.SearchProblem;
 
 public class MainEx1 {
 

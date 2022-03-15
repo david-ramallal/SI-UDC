@@ -1,4 +1,4 @@
-package es.udc.intelligentsystems;
+package es.udc.intelligentsystems.g61_05;
 
 public class HeuristicMagicSquare extends Heuristic {
     @Override
@@ -18,7 +18,7 @@ public class HeuristicMagicSquare extends Heuristic {
         if(countEmptyCells == 0)
             return 0;
         else{
-            valueHeuristic = countEmptyCells / cellsSquare;
+            valueHeuristic = cellsSquare / countEmptyCells;
         }
         return valueHeuristic;
     }

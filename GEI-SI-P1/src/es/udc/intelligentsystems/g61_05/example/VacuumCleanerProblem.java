@@ -1,8 +1,8 @@
-package es.udc.intelligentsystems.example;
+package es.udc.intelligentsystems.g61_05.example;
 
-import es.udc.intelligentsystems.Action;
-import es.udc.intelligentsystems.State;
-import es.udc.intelligentsystems.SearchProblem;
+import es.udc.intelligentsystems.g61_05.Action;
+import es.udc.intelligentsystems.g61_05.State;
+import es.udc.intelligentsystems.g61_05.SearchProblem;
 
 public class VacuumCleanerProblem extends SearchProblem {
     public static class VacuumCleanerState extends State {

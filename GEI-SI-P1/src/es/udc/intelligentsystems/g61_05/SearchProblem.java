@@ -1,4 +1,4 @@
-package es.udc.intelligentsystems;
+package es.udc.intelligentsystems.g61_05;
 
 
 public abstract class SearchProblem {
