@@ -13,6 +13,10 @@ public class MagicSquareProblem extends SearchProblem{
             this.square = square;
         }
 
+        public List<List<Integer>> getSquare() {
+            return square;
+        }
+
         @Override
         public String toString() {
             String rtnString = "[";

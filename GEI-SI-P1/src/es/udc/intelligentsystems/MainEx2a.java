@@ -1,7 +1,5 @@
 package es.udc.intelligentsystems;
 
-import es.udc.intelligentsystems.example.GraphSearchStrategy;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +10,7 @@ public class MainEx2a {
         This is an example to check Breadth-first and Depth-first
          */
 
-        List<List<Integer>> cuadrado = new ArrayList<>();
+        List<List<Integer>> square = new ArrayList<>();
         List<Integer> list1 = new ArrayList<>();
         List<Integer> list2 = new ArrayList<>();
         List<Integer> list3 = new ArrayList<>();
@@ -27,13 +25,13 @@ public class MainEx2a {
         list3.add(0);
         list3.add(0);
 
-        cuadrado.add(list1);
-        cuadrado.add(list2);
-        cuadrado.add(list3);
+        square.add(list1);
+        square.add(list2);
+        square.add(list3);
 
         //Output should be: [[4,9,2],[3,5,7],[8,1,6]]
 
-        MagicSquareProblem.MagicSquareState initialState = new MagicSquareProblem.MagicSquareState(cuadrado);
+        MagicSquareProblem.MagicSquareState initialState = new MagicSquareProblem.MagicSquareState(square);
         SearchProblem magicSquare = new MagicSquareProblem(initialState);
 
         System.out.println("Breadth-first: ");
