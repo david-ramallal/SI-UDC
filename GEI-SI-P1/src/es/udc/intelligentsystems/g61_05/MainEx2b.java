@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainEx2b {
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception {
         List<List<Integer>> square = new ArrayList<>();
         List<Integer> list1 = new ArrayList<>();
         List<Integer> list2 = new ArrayList<>();
         List<Integer> list3 = new ArrayList<>();
 
+        list1.add(0);
+        list1.add(0);
         list1.add(2);
-        list1.add(0);
-        list1.add(0);
         list2.add(0);
-        list2.add(0);
-        list2.add(0);
+        list2.add(5);
+        list2.add(7);
         list3.add(0);
         list3.add(0);
         list3.add(0);
@@ -27,6 +27,10 @@ public class MainEx2b {
         MagicSquareProblem.MagicSquareState initialState = new MagicSquareProblem.MagicSquareState(square);
         SearchProblem magicSquare = new MagicSquareProblem(initialState);
         HeuristicMagicSquare heuristic = new HeuristicMagicSquare();
+        InformedSearchStrategy aStar = new AStar();
+
+        //Node[] nodes = aStar.solve(magicSquare, heuristic);
+        //System.out.println(nodes[nodes.length-1]);
 
     }
 }

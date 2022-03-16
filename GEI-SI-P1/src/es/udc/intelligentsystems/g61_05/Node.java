@@ -43,6 +43,14 @@ public class Node implements Comparable<Node>{
         this.pathCost = pathCost;
     }
 
+    public float getPathCost() {
+        return pathCost;
+    }
+
+    public float getHeuristicCost() {
+        return heuristicCost;
+    }
+
     public void setHeuristicCost(float heuristicCost) {
         this.heuristicCost = heuristicCost;
     }
@@ -52,9 +60,9 @@ public class Node implements Comparable<Node>{
         if(o == null)
             throw new NullPointerException();
 
-        if(this.heuristicCost == o.heuristicCost)
+        if(this.heuristicCost + this.pathCost == o.heuristicCost + o.pathCost)
             return 0;
-        else if(this.heuristicCost < o.heuristicCost)
+        else if(this.heuristicCost + this.pathCost < o.heuristicCost + o.pathCost)
             return -1;
         else
             return 1;

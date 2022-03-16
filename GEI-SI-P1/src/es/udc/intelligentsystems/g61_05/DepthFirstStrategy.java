@@ -11,7 +11,7 @@ public class DepthFirstStrategy implements SearchStrategy{
         ArrayList<Node> explored = new ArrayList<>();
         ArrayList<Node> frontier = new ArrayList<>();
         List<Node> succ;
-        int countExpanded = 0, countCreated = 0;
+        int cntCreated = 0, cntExpanded = 0;
 
         Node node;
         State state;
@@ -25,14 +25,14 @@ public class DepthFirstStrategy implements SearchStrategy{
             node = frontier.remove(frontier.size() - 1);
             state = node.getNodeState();
             if(p.isGoal(state)){
-                System.out.println("Number of expanded nodes: " + countExpanded);
-                System.out.println("Number of created nodes: " + countCreated);
+                System.out.println("Number of created nodes: " + cntCreated);
+                System.out.println("Number of expanded nodes: " + cntExpanded);
                 return reconstruct_sol(node);
             }else {
                 explored.add(node);
-                countCreated++;
+                cntExpanded++;
                 succ = successors(node, p);
-                countExpanded += succ.size();
+                cntCreated += succ.size();
             }
 
             for(Node h: succ) {
