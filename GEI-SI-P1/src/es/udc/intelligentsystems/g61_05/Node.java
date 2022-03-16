@@ -6,7 +6,7 @@ public class Node implements Comparable<Node>{
     private Node parent;
     private Action nodeAction;
     private float pathCost;
-    private float heuristicCost;
+    private float totalCost;
 
 
     public Node(State nodeState, Node parent, Action nodeAction) {
@@ -47,12 +47,12 @@ public class Node implements Comparable<Node>{
         return pathCost;
     }
 
-    public float getHeuristicCost() {
-        return heuristicCost;
+    public float getTotalCost() {
+        return totalCost;
     }
 
-    public void setHeuristicCost(float heuristicCost) {
-        this.heuristicCost = heuristicCost;
+    public void setTotalCost(float totalCost) {
+        this.totalCost = totalCost;
     }
 
     @Override
@@ -60,9 +60,9 @@ public class Node implements Comparable<Node>{
         if(o == null)
             throw new NullPointerException();
 
-        if(this.heuristicCost + this.pathCost == o.heuristicCost + o.pathCost)
+        if(this.totalCost + this.pathCost == o.totalCost + o.pathCost)
             return 0;
-        else if(this.heuristicCost + this.pathCost < o.heuristicCost + o.pathCost)
+        else if(this.totalCost + this.pathCost < o.totalCost + o.pathCost)
             return -1;
         else
             return 1;

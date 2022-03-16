@@ -48,8 +48,13 @@ public class AStar implements InformedSearchStrategy {
                     statesExplored.add(value.getNodeState());
                 }
 
-                n.setHeuristicCost(node.getHeuristicCost() + n.getNodeAction().getCost());
-                n.setPathCost(n.getHeuristicCost() + h.evaluate(n.getNodeState()));
+                n.setPathCost(node.getPathCost() + n.getNodeAction().getCost());
+                //esto é a f
+                n.setTotalCost(n.getPathCost() + h.evaluate(n.getNodeState()));
+
+
+                //n.setPathCost(node.getPathCost() + h.evaluate(n.getNodeState()));
+                //n.setPathCost(n.getHeuristicCost() + h.evaluate(n.getNodeState()));
 
                 if(statesExplored.contains(n.getNodeState()))
                     continue;
@@ -59,7 +64,7 @@ public class AStar implements InformedSearchStrategy {
                     continue;
                 }
 
-                if(n.getPathCost() < node.getPathCost()){
+                if(n.getTotalCost() < node.getTotalCost()){
                     frontier.remove(node);
                     frontier.add(n);
                 }
