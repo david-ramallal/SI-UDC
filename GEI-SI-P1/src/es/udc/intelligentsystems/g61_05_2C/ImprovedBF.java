@@ -1,0 +1,90 @@
+package es.udc.intelligentsystems.g61_05_2C;
+
+import es.udc.intelligentsystems.g61_05.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class ImprovedBF implements SearchStrategy {
+
+    @Override
+    public Node[] solve(SearchProblem p) throws Exception {
+        ArrayList<Node> explored = new ArrayList<>();
+        ArrayList<Node> frontier = new ArrayList<>();
+        List<Node> succ;
+        int cntExpanded = 0, cntCreated = 0;
+
+        Node node;
+
+        Node initialNode = new Node();
+        initialNode.setNodeState(p.getInitialState());
+
+        if(p.isGoal(initialNode.getNodeState())){
+            Node[] rtnNode = new Node[1];
+            rtnNode[0] = initialNode;
+            return rtnNode;
+        }
+
+        frontier.add(initialNode);
+
+        while(!frontier.isEmpty()){
+            node = frontier.remove(0);
+
+            explored.add(node);
+            cntExpanded++;
+            succ = successors(node, p);
+            cntCreated += succ.size();
+
+            for(Node h: succ) {
+                if(p.isGoal(h.getNodeState())){
+                    System.out.println("Number of created nodes: " + cntCreated);
+                    System.out.println("Number of expanded nodes: " + cntExpanded);
+                    return reconstruct_sol(h);
+                }
+
+                List<State> statesFrontier = new ArrayList<>();
+                List<State> statesExplored = new ArrayList<>();
+
+                for (Node item : frontier) {
+                    statesFrontier.add(item.getNodeState());
+                }
+                for (Node value : explored) {
+                    statesExplored.add(value.getNodeState());
+                }
+
+                if (!statesFrontier.contains(h.getNodeState()) && !statesExplored.contains(h.getNodeState())) {
+                    frontier.add(h);
+                }
+            }
+        }
+        throw new Exception("No solution could be found");
+    }
+
+    public Node[] reconstruct_sol(Node node)  {
+        List<Node> solution = new ArrayList<>();
+        Node a = node;
+
+        while(a != null) {
+            solution.add(a);
+            a = a.getParent();
+        }
+
+        Collections.reverse(solution);
+        return solution.toArray(new Node[0]);
+    }
+
+    public List<Node> successors(Node node, SearchProblem p)  {
+        List<Node> successors = new ArrayList<>();
+
+        Action[] availableActions = p.actions(node.getNodeState());
+        for(Action acc: availableActions){
+            if(acc.isApplicable(node.getNodeState())){
+                State newState = p.result(node.getNodeState(), acc);
+                Node newNode = new Node(newState,node,acc);
+                successors.add(newNode);
+            }
+        }
+        return successors;
+    }
+}
