@@ -18,7 +18,8 @@ public class HeuristicMagicSquare extends Heuristic {
         if(countEmptyCells == 0)
             return 0;
         else{
-            valueHeuristic = cellsSquare / countEmptyCells;
+            //valueHeuristic = cellsSquare / countEmptyCells;
+            valueHeuristic = countEmptyCells / cellsSquare;
         }
         return valueHeuristic;
     }

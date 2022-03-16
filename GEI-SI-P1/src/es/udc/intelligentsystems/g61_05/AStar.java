@@ -6,7 +6,7 @@ import java.util.List;
 
 public class AStar implements InformedSearchStrategy {
     @Override
-    public State solve(SearchProblem p, Heuristic h) throws Exception {
+    public Node[] solve(SearchProblem p, Heuristic h) throws Exception {
 
         ArrayList<Node> explored = new ArrayList<>();
         ArrayList<Node> frontier = new ArrayList<>();
@@ -28,8 +28,8 @@ public class AStar implements InformedSearchStrategy {
             if(p.isGoal(state)){
                 System.out.println("Number of created nodes: " + cntCreated);
                 System.out.println("Number of expanded nodes: " + cntExpanded);
-                //return reconstruct_sol(node);
-                return null;
+                return reconstruct_sol(node);
+                //return null;
             }else {
                 explored.add(node);
                 cntExpanded++;
@@ -48,8 +48,8 @@ public class AStar implements InformedSearchStrategy {
                     statesExplored.add(value.getNodeState());
                 }
 
-                n.setPathCost(node.getPathCost() + n.getHeuristicCost());
-                n.setHeuristicCost(n.getPathCost() + h.evaluate(n.getNodeState()));
+                n.setHeuristicCost(node.getHeuristicCost() + n.getNodeAction().getCost());
+                n.setPathCost(n.getHeuristicCost() + h.evaluate(n.getNodeState()));
 
                 if(statesExplored.contains(n.getNodeState()))
                     continue;
@@ -59,8 +59,8 @@ public class AStar implements InformedSearchStrategy {
                     continue;
                 }
 
-                if(n.getHeuristicCost() < node.getParent().getHeuristicCost()){
-                    frontier.remove(n);
+                if(n.getPathCost() < node.getPathCost()){
+                    frontier.remove(node);
                     frontier.add(n);
                 }
             }

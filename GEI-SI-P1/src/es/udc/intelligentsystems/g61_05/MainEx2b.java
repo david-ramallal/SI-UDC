@@ -29,8 +29,8 @@ public class MainEx2b {
         HeuristicMagicSquare heuristic = new HeuristicMagicSquare();
         InformedSearchStrategy aStar = new AStar();
 
-        //Node[] nodes = aStar.solve(magicSquare, heuristic);
-        //System.out.println(nodes[nodes.length-1]);
+        Node[] nodes = aStar.solve(magicSquare, heuristic);
+        System.out.println(nodes[nodes.length-1]);
 
     }
 }
