@@ -68,6 +68,10 @@ public class MagicSquareProblem extends SearchProblem{
         @Override
         public boolean isApplicable(State st) {
             MagicSquareState squareState = (MagicSquareState) st;
+            int totalRow, totalCol, totalDiag = 0;
+
+            float cellsSquare = squareState.getSquare().size() * squareState.getSquare().size();
+            float maxNumber = (squareState.getSquare().size() * (cellsSquare + 1)) / 2;
 
             if(squareState.square.get(boxX - 1).get(boxY - 1) != 0)
                 return false;
@@ -76,6 +80,22 @@ public class MagicSquareProblem extends SearchProblem{
                 if(squareState.square.get(i).contains(number))
                     return false;
             }
+
+            for(int i = 0; i < squareState.getSquare().size(); i++){
+                totalRow = 0;
+                totalCol = 0;
+                for(int j = 0; j < squareState.getSquare().size(); j++){
+                    totalRow += squareState.getSquare().get(i).get(j);
+                    totalCol += squareState.getSquare().get(j).get(i);
+                }
+                totalDiag += squareState.getSquare().get(i).get(i);
+                if(totalRow > maxNumber || totalCol > maxNumber) {
+                    return false;
+                }
+            }
+            if(totalDiag > maxNumber)
+                return false;
+
             return true;
         }
 
@@ -106,7 +126,7 @@ public class MagicSquareProblem extends SearchProblem{
         MagicSquareState squareState = (MagicSquareState) st;
         int n = squareState.square.size() * squareState.square.size();
         int total = (squareState.square.size() * (n + 1))/2 ;
-        int totalRow, totalCol;
+        int totalRow, totalCol, totalDiag = 0;
 
         for(int i = 0; i < squareState.square.size(); i++){
             totalRow = 0;
@@ -115,9 +135,13 @@ public class MagicSquareProblem extends SearchProblem{
                 totalRow += squareState.square.get(i).get(j);
                 totalCol += squareState.square.get(j).get(i);
             }
+            totalDiag += squareState.square.get(i).get(i);
             if(totalRow!=total || totalCol!=total)
                 return false;
         }
+
+        if(totalDiag != total)
+            return false;
 
         return true;
     }
