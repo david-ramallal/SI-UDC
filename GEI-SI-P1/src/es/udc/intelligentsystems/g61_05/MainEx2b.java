@@ -10,12 +10,12 @@ public class MainEx2b {
         List<Integer> list2 = new ArrayList<>();
         List<Integer> list3 = new ArrayList<>();
 
-        list1.add(0);
-        list1.add(0);
         list1.add(2);
+        list1.add(0);
+        list1.add(0);
         list2.add(0);
-        list2.add(5);
-        list2.add(7);
+        list2.add(0);
+        list2.add(0);
         list3.add(0);
         list3.add(0);
         list3.add(0);

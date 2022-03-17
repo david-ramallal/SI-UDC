@@ -5,8 +5,8 @@ public class HeuristicMagicSquare extends Heuristic {
     public float evaluate(State e) {
         MagicSquareProblem.MagicSquareState squareState = (MagicSquareProblem.MagicSquareState) e;
         int countEmptyCells = 0;
-        int totalRow, totalCol;
-        float valueHeuristic, overpass = 0.5f;
+        int totalRow, totalCol, col, row;
+        float valueHeuristic, overpass = 0;
         float cellsSquare = squareState.getSquare().size() * squareState.getSquare().size();
 
         float maxNumber = (squareState.getSquare().size() * (cellsSquare + 1)) / 2;
@@ -17,6 +17,7 @@ public class HeuristicMagicSquare extends Heuristic {
                     countEmptyCells++;
             }
         }
+
         if(countEmptyCells == 0)
             return 0;
 
@@ -28,12 +29,15 @@ public class HeuristicMagicSquare extends Heuristic {
                 totalCol += squareState.getSquare().get(j).get(i);
             }
             if(totalRow > maxNumber || totalCol > maxNumber) {
-                overpass = 1;
+                overpass = maxNumber*2 * squareState.getSquare().size();
                 break;
+            }else{
+                overpass += ((maxNumber-totalCol) + (maxNumber - totalRow));
             }
         }
 
-        valueHeuristic = (countEmptyCells / cellsSquare) * overpass;
+
+        valueHeuristic = (countEmptyCells / cellsSquare) * (overpass);
 
         return valueHeuristic;
     }

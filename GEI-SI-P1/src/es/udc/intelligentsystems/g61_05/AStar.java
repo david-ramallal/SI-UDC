@@ -64,6 +64,7 @@ public class AStar implements InformedSearchStrategy {
                 }
 
                 if(n.getF() < node.getF()){
+                    System.out.println();
                     frontier.remove(node);
                     frontier.add(n);
                 }
