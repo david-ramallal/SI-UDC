@@ -53,6 +53,11 @@ public class Strategy4 implements SearchStrategy {
         return reconstruct_sol(nodes.get(nodes.size() - 1));
     }
 
+    /*
+    * Function for reconstructing the solution.
+    * It receives the goal node and, using its parents, it
+    * reconstructs the solution and return a Node list.
+     */
     public Node[] reconstruct_sol(Node node)  {
         List<Node> solution = new ArrayList<>();
         Node a = node;

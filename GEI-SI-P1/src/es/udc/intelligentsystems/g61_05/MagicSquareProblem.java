@@ -68,7 +68,7 @@ public class MagicSquareProblem extends SearchProblem{
         @Override
         public boolean isApplicable(State st) {
             MagicSquareState squareState = (MagicSquareState) st;
-            int totalRow, totalCol, totalDiag = 0;
+            int totalRow, totalCol, totalDiag = 0, totalDiag2 = 0;
 
             float cellsSquare = squareState.getSquare().size() * squareState.getSquare().size();
             float maxNumber = (squareState.getSquare().size() * (cellsSquare + 1)) / 2;
@@ -89,11 +89,13 @@ public class MagicSquareProblem extends SearchProblem{
                     totalCol += squareState.getSquare().get(j).get(i);
                 }
                 totalDiag += squareState.getSquare().get(i).get(i);
+                totalDiag2 += squareState.getSquare().get(i).get(squareState.getSquare().size() - 1 - i);
+
                 if(totalRow > maxNumber || totalCol > maxNumber) {
                     return false;
                 }
             }
-            if(totalDiag > maxNumber)
+            if(totalDiag > maxNumber || totalDiag2 > maxNumber)
                 return false;
 
             return true;
@@ -126,7 +128,7 @@ public class MagicSquareProblem extends SearchProblem{
         MagicSquareState squareState = (MagicSquareState) st;
         int n = squareState.square.size() * squareState.square.size();
         int total = (squareState.square.size() * (n + 1))/2 ;
-        int totalRow, totalCol, totalDiag = 0;
+        int totalRow, totalCol, totalDiag = 0, totalDiag2 = 0;
 
         for(int i = 0; i < squareState.square.size(); i++){
             totalRow = 0;
@@ -136,11 +138,12 @@ public class MagicSquareProblem extends SearchProblem{
                 totalCol += squareState.square.get(j).get(i);
             }
             totalDiag += squareState.square.get(i).get(i);
+            totalDiag2 += squareState.square.get(i).get(squareState.square.get(i).size() - 1 -i);
             if(totalRow!=total || totalCol!=total)
                 return false;
         }
 
-        if(totalDiag != total)
+        if(totalDiag != total || totalDiag2 != total)
             return false;
 
         return true;

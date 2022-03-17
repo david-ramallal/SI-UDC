@@ -5,8 +5,6 @@ public class Node implements Comparable<Node>{
     private State nodeState;
     private Node parent;
     private Action nodeAction;
-    //private float pathCost;
-    //private float totalCost;
     private float f;
     private float g;
     private float h;
@@ -42,23 +40,6 @@ public class Node implements Comparable<Node>{
         return nodeState.toString();
     }
 
-//    public void setPathCost(float pathCost) {
-//        this.pathCost = pathCost;
-//    }
-//
-//    public float getPathCost() {
-//        return pathCost;
-//    }
-//
-//    public float getTotalCost() {
-//        return totalCost;
-//    }
-//
-//    public void setTotalCost(float totalCost) {
-//        this.totalCost = totalCost;
-//    }
-
-
     public float getF() {
         return f;
     }
@@ -85,14 +66,6 @@ public class Node implements Comparable<Node>{
 
     @Override
     public int compareTo(Node o) {
-//        if(o == null)
-//            throw new NullPointerException();
-//        if(this.totalCost + this.pathCost == o.totalCost + o.pathCost)
-//            return 0;
-//        else if(this.totalCost + this.pathCost < o.totalCost + o.pathCost)
-//            return -1;
-//        else
-//            return 1;
         return Float.compare(this.f, o.f);
     }
 }

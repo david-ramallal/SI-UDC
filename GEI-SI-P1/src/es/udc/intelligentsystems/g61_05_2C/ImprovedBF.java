@@ -61,6 +61,11 @@ public class ImprovedBF implements SearchStrategy {
         throw new Exception("No solution could be found");
     }
 
+    /*
+     * Function for reconstructing the solution.
+     * It receives the goal node and, using its parents, it
+     * reconstructs the solution and return a Node list.
+     */
     public Node[] reconstruct_sol(Node node)  {
         List<Node> solution = new ArrayList<>();
         Node a = node;
@@ -74,6 +79,12 @@ public class ImprovedBF implements SearchStrategy {
         return solution.toArray(new Node[0]);
     }
 
+    /*
+     * Function for obtaining the expansion of a node.
+     * It receives a node and a search problem,
+     * and, applying the action, it obtains the list of
+     * nodes of which the current node is the parent.
+     */
     public List<Node> successors(Node node, SearchProblem p)  {
         List<Node> successors = new ArrayList<>();
 
