@@ -19,6 +19,10 @@ public class AStar implements InformedSearchStrategy {
         Node initialNode = new Node();
         initialNode.setNodeState(p.getInitialState());
 
+        initialNode.setG(0);
+        initialNode.setH(h.evaluate(initialNode.getNodeState()));
+        initialNode.setF(initialNode.getG() + initialNode.getH());
+
         frontier.add(initialNode);
 
         while(!frontier.isEmpty()){
@@ -29,7 +33,6 @@ public class AStar implements InformedSearchStrategy {
                 System.out.println("Number of created nodes: " + cntCreated);
                 System.out.println("Number of expanded nodes: " + cntExpanded);
                 return reconstruct_sol(node);
-                //return null;
             }else {
                 explored.add(node);
                 cntExpanded++;
@@ -48,13 +51,9 @@ public class AStar implements InformedSearchStrategy {
                     statesExplored.add(value.getNodeState());
                 }
 
-                n.setPathCost(node.getPathCost() + n.getNodeAction().getCost());
-                //esto é a f
-                n.setTotalCost(n.getPathCost() + h.evaluate(n.getNodeState()));
+                n.setG(node.getG() + n.getNodeAction().getCost());
+                n.setF(n.getG() + h.evaluate(n.getNodeState()));
 
-
-                //n.setPathCost(node.getPathCost() + h.evaluate(n.getNodeState()));
-                //n.setPathCost(n.getHeuristicCost() + h.evaluate(n.getNodeState()));
 
                 if(statesExplored.contains(n.getNodeState()))
                     continue;
@@ -64,7 +63,7 @@ public class AStar implements InformedSearchStrategy {
                     continue;
                 }
 
-                if(n.getTotalCost() < node.getTotalCost()){
+                if(n.getF() < node.getF()){
                     frontier.remove(node);
                     frontier.add(n);
                 }

@@ -115,9 +115,7 @@ public class MagicSquareProblem extends SearchProblem{
                 totalRow += squareState.square.get(i).get(j);
                 totalCol += squareState.square.get(j).get(i);
             }
-            if(totalRow!=total)
-                return false;
-            if(totalCol!=total)
+            if(totalRow!=total || totalCol!=total)
                 return false;
         }
 
